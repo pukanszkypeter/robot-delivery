@@ -44,5 +44,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Proxy conf files
+# Proxy files
 proxy.conf.json

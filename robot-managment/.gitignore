@@ -1,5 +1,5 @@
 # IDEs and editors
 /.idea
 
-# Cache
-/__pycache__
+# Pycache Files
+*.pyc
