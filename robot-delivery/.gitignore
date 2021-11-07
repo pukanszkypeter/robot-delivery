@@ -43,3 +43,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Proxy conf files
+proxy.conf.json
