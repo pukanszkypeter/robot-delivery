@@ -1,0 +1,93 @@
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center animate__animated animate__fadeInDown">
+  <h1 class="display-4 fw-normal">Collaborative delivery with energy-constrained mobile robots</h1>
+  <p class="fs-5 text-muted">Jérémie Chalopin, Andreas Bärtschi, Shantanu Das, Yann Disser, Barbara Geissmann, Daniel Graf, Arnaud Labourel, Matúš Mihalák</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Step 1 <i class="bi bi-arrow-right"></i></h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{ bfsTime }}<small class="text-muted fw-light"> ms</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Breadth-First search algorithm</li>
+          <li>Tree-shaped path for the package</li>
+          <li>Max. <i class="bi bi-arrow-right"></i> O (n) steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Step 2 <i class="bi bi-arrow-right"></i></h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{ greedyTime }}<small class="text-muted fw-light"> ms</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Greedy algorithm</li>
+          <li>Covering problem on path</li>
+          <li>Max. <i class="bi bi-arrow-right"></i> O (k * log(k)) steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Result</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{ bfsTime + greedyTime }}<small class="text-muted fw-light"> ms</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>BFS + Greedy</li>
+          <li>Solution if feasible schedule</li>
+          <li>Max. <i class="bi bi-arrow-right"></i> O (n + k * log(k)) steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1 class="display-6 fw-normal">Returning budgeted delivery on the tree</h1>
+<div class="row py-3">
+  <div class="col-8">
+    <button mat-mini-fab class="operator" [class.disabled-button]="!operators" [disabled]="!operators" (click)="this.BFS ? this.playBFS() : this.playGreedy()">
+      <mat-icon svgIcon="play" matTooltip="Play"></mat-icon>
+    </button>
+    <button mat-mini-fab class="operator" [class.disabled-button]="!operators" [disabled]="!operators" (click)="pause()">
+      <mat-icon svgIcon="pause" matTooltip="Pause"></mat-icon>
+    </button>
+    <button mat-mini-fab class="operator" [class.disabled-button]="!operators" [disabled]="!operators" (click)="step()">
+      <mat-icon svgIcon="step" matTooltip="Next step"></mat-icon>
+    </button>
+    <button mat-mini-fab class="operator" [class.disabled-button]="!operators" [disabled]="!operators" (click)="back()">
+      <mat-icon svgIcon="reset" matTooltip="Reset"></mat-icon>
+    </button>
+    <mat-icon svgIcon="speed" class="speed"></mat-icon>
+    <mat-slider color="primary"
+                [max]="2000"
+                [min]="200"
+                [step]="50"
+                [thumbLabel]="true"
+                [(ngModel)]="speed"
+                [disabled]="!operators"></mat-slider>
+    <span>{{ speed }} ms</span>
+    <mat-icon svgIcon="battery" class="battery" *ngIf="showEnergy"></mat-icon>
+    <span class="battery-text" *ngIf="showEnergy">{{ selectedEnergy }}</span>
+  </div>
+  <div class="col-4 text-end">
+    <button mat-raised-button class="operator" (click)="runBFS()" [class.disabled-button]="!runnableBFS" [disabled]="!runnableBFS">Run BFS <i class="bi bi-arrow-right-short"></i></button>
+    <button mat-raised-button class="operator" (click)="runGreedy()" [class.disabled-button]="!runnableGreedy" [disabled]="!runnableGreedy">Run Greedy <i class="bi bi-arrow-right-short"></i></button>
+    <button mat-mini-fab class="operator" [class.disabled-button]="!robotAvailable" [disabled]="!robotAvailable" (click)="openRobotConfigurationDialog()">
+      <mat-icon svgIcon="robot" matTooltip="Configure robots"></mat-icon>
+    </button>
+    <button mat-mini-fab>
+      <mat-icon svgIcon="tree" matTooltip="Configure tree" (click)="openTreeConfigurationDialog()"></mat-icon>
+    </button>
+  </div>
+</div>
+<mat-card id="vis-container">
+</mat-card>
