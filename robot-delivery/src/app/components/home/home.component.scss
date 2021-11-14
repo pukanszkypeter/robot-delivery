@@ -1,0 +1,30 @@
+button {
+  background-color: blueviolet !important;
+  color: white;
+}
+
+.operator {
+  margin-right: 20px;
+}
+
+.disabled-button {
+  background-color: grey !important;
+}
+
+.speed {
+  margin-right: 5px;
+}
+
+.battery {
+  margin-left: 10px;
+}
+
+.battery-text {
+  font-weight: bold;
+  font-size: large;
+}
+
+mat-card#vis-container {
+  height: 500px;
+  background-color: #eeee;
+}

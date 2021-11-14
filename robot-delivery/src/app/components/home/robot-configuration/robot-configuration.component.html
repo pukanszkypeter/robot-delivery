@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>
+  Robots configuration
+  <button mat-mini-fab class="close-button" mat-dialog-close>
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</h1>
+<mat-dialog-content>
+  <form [formGroup]="robotConfiguration">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max budget of robot</mat-label>
+        <input type="number" matInput [formControl]="budget">
+        <mat-error *ngIf="budget.hasError('required')">Max level of tree is required!</mat-error>
+        <mat-error *ngIf="budget.hasError('min')">Min value should be 5!</mat-error>
+        <mat-error *ngIf="budget.hasError('max')">Max value can be 20!</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max weight of an edge</mat-label>
+        <input type="number" matInput [formControl]="weight">
+        <mat-error *ngIf="weight.hasError('required')">Max weight of an edge is required!</mat-error>
+        <mat-error *ngIf="weight.hasError('min')">Min value should be 1!</mat-error>
+        <mat-error *ngIf="weight.hasError('max')">Max value can be 5!</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Location of robots</mat-label>
+        <mat-select [formControl]="location" multiple>
+          <mat-option *ngFor="let place of path" [value]="place">
+            {{ place }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="location.hasError('required')">Location of robots is required!</mat-error>
+      </mat-form-field>
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button style="background-color: blueviolet;color: white" [class.disabled-button]="!robotConfiguration.valid" [disabled]="!robotConfiguration.valid" (click)="save()">Save</button>
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
