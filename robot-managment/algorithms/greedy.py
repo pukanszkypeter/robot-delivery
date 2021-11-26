@@ -32,6 +32,7 @@ class GreedyModel:
         self.nodes = nodes
         self.edges = edges
         self.agents = agents
+        self.steps = 0
 
     # Calculate left most and right most accessible points
     def initAgents(self):
@@ -96,8 +97,8 @@ class GreedyModel:
         
         return accessible
 
-"""
-EXAMPLE
+
+'''
 
 node_1 = Node(1)
 node_2 = Node(2)
@@ -129,15 +130,32 @@ edges.append(edge_4_5)
 edges.append(edge_5_6)
 
 agent_1 = Agent(1, 2, 10)
-agent_2 = Agent(2, 4, 10)
-agent_3 = Agent(3, 6, 10)
+agent_2 = Agent(2, 2, 10)
+agent_3 = Agent(3, 2, 10)
+agent_4 = Agent(4, 2, 10)
 
 agents = []
 agents.append(agent_1)
 agents.append(agent_2)
 agents.append(agent_3)
 
+
+def calculateResult(interval, numberOfNodes):
+    valueses = list(interval.values())
+    print(valueses)
+
+    lastValue = valueses[len(valueses) - 1]
+    print(lastValue)
+    lastNodeId = lastValue[1]
+    print(lastNodeId)
+    if lastNodeId != numberOfNodes:
+        return None
+    else:
+        return len(list(interval.keys()))
+   
+
 greedyModel = GreedyModel(nodes, edges, agents)
 greedyModel.initAgents()
-print(greedyModel.greedy())
-"""
+calculateResult(greedyModel.greedy(), 6)
+
+'''

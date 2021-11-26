@@ -23,6 +23,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { BfsConfigurationComponent } from './components/home/bfs-configuration/bfs-configuration.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
+import { BfsTestConfigurationComponent } from './components/home/bfs-test-configuration/bfs-test-configuration.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatOptionModule} from "@angular/material/core";
     PageNotFoundComponent,
     TreeConfigurationComponent,
     RobotConfigurationComponent,
-    BfsConfigurationComponent
+    BfsConfigurationComponent,
+    BfsTestConfigurationComponent
   ],
     imports: [
         BrowserModule,

@@ -81,6 +81,7 @@
   <div class="col-4 text-end">
     <button mat-raised-button class="operator" (click)="runBFS()" [class.disabled-button]="!runnableBFS" [disabled]="!runnableBFS">Run BFS <i class="bi bi-arrow-right-short"></i></button>
     <button mat-raised-button class="operator" (click)="runGreedy()" [class.disabled-button]="!runnableGreedy" [disabled]="!runnableGreedy">Run Greedy <i class="bi bi-arrow-right-short"></i></button>
+    <button mat-raised-button class="operator" (click)="openTestConfigurationDialog()" >Run Tests<i class="bi bi-arrow-right-short"></i></button>
     <button mat-mini-fab class="operator" [class.disabled-button]="!robotAvailable" [disabled]="!robotAvailable" (click)="openRobotConfigurationDialog()">
       <mat-icon svgIcon="robot" matTooltip="Configure robots"></mat-icon>
     </button>

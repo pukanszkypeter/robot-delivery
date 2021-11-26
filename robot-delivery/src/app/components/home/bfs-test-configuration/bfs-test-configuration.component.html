@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>
+  Tree configuration
+  <button mat-mini-fab class="close-button" mat-dialog-close>
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</h1>
+<mat-dialog-content>
+  <form [formGroup]="treeConfiguration">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max level of tree</mat-label>
+        <input type="number" matInput [formControl]="level">
+        <mat-error *ngIf="level.hasError('required')">Max level of tree is required!</mat-error>
+        <mat-error *ngIf="level.hasError('min')">Min value should be 2!</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max children of a node</mat-label>
+        <input type="number" matInput [formControl]="child">
+        <mat-error *ngIf="child.hasError('required')">Max children of a node is required!</mat-error>
+        <mat-error *ngIf="child.hasError('min')">Min value should be 2!</mat-error>
+      </mat-form-field>
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button style="background-color: blueviolet;color: white" [class.disabled-button]="!treeConfiguration.valid" [disabled]="!treeConfiguration.valid" (click)="save()">Save</button>
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

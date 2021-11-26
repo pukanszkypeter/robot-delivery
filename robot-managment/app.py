@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request, render_template, send_from_directory
 from algorithms import bfs, greedy
 import warnings
+from algorithms.automatizedTestsForBfs import *
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -28,11 +29,28 @@ def runBFS():
     for key in json_tree:
         tree[int(key)] = json_tree[key]
 
+    print(tree)
     steps = bfs.bfs_steps(tree, start, end)
     if steps == None:
         return jsonify([])
     else:
         return jsonify(steps)
+
+
+
+#Test
+@app.route("/api/bfsTest", methods=['POST'])
+def runBFSTest():
+    print("seeepsz")
+    parameters = request.get_json()
+    json_tree = parameters['tree']
+    numberOfEdge = parameters['edgesCount']
+
+    tree = {}
+    for key in json_tree:
+        tree[int(key)] = json_tree[key]
+    runTest(100, tree, numberOfEdge)
+    return ''
 
 # Greedy
 @app.route("/api/greedy", methods=['POST'])
