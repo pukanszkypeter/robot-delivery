@@ -27,16 +27,25 @@ export class VisService {
     return {nodes: nodes, edges: edges, model: tree};
   }
 
-  calculateTreeEdgeNumber(tree: any){
-    let edgeID = 1;
-    for (let i = 0; i < tree.length; i++) {
-      for (let [key, value] of tree[i]) {
-        for (let j = 0; j < value.length; j++) {
-          edgeID++;
-        }
+  calculateTreeEdgeNumber(edges: any, maxNodeID: number){
+    let edgeCount = 0;
+
+    for (let i of edges) {
+      if (i.to <= maxNodeID){
+        edgeCount++;
       }
     }
-    return edgeID;
+    return edgeCount;
+  }
+
+  calculateTreeNodeNumber(tree: any){
+    let nodeID = 1;
+    for (let i = 0; i < tree.length; i++) {
+      for (let [key, value] of tree[i]) {
+        nodeID++;
+      }
+    }
+    return nodeID - 1;
   }
 
   calculatePathData(path: number[], robots: number[], budget: number, weight: number): {nodes: any[], edges: any[], model: any} {

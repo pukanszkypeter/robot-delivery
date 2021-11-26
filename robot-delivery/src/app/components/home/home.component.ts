@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
         this.operators = false;
         this.openSnackBar('Successful saving!', 'success-snackbar');
         let result = this.implementTree(res.level, res.child)
-        this.algorithmService.runBFSTest(result.tree, result.edgeCount);
+        this.algorithmService.runBFSTest(result.tree, result.edgeCount, result.nodeCount).subscribe();
       }
     }, err => {
       console.log(err);
@@ -108,7 +108,8 @@ export class HomeComponent implements OnInit {
 
   implementTree(level: number, child: number) {
     let tree = this.visService.generateTree(level, child);
-    return {tree: tree, edgeCount: this.visService.calculateTreeEdgeNumber(tree)};
+    let edges = this.visService.calculateTreeData(level, child);
+    return {tree: tree, edgeCount: this.visService.calculateTreeEdgeNumber(edges.edges, this.visService.calculateTreeNodeNumber(tree)), nodeCount: this.visService.calculateTreeNodeNumber(tree)};
   }
 
   /** Vis.js */

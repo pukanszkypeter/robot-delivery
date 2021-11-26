@@ -29,7 +29,6 @@ def runBFS():
     for key in json_tree:
         tree[int(key)] = json_tree[key]
 
-    print(tree)
     steps = bfs.bfs_steps(tree, start, end)
     if steps == None:
         return jsonify([])
@@ -41,15 +40,16 @@ def runBFS():
 #Test
 @app.route("/api/bfsTest", methods=['POST'])
 def runBFSTest():
-    print("seeepsz")
     parameters = request.get_json()
     json_tree = parameters['tree']
     numberOfEdge = parameters['edgesCount']
+    numberOfNode = parameters['nodeNumber']
 
     tree = {}
     for key in json_tree:
         tree[int(key)] = json_tree[key]
-    runTest(100, tree, numberOfEdge)
+
+    runTest(10, tree, numberOfEdge, numberOfNode)
     return ''
 
 # Greedy

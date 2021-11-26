@@ -3,3 +3,7 @@
 
 # Pycache Files
 *.pyc
+
+#Database
+
+*.sqlite

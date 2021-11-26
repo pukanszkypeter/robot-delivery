@@ -21,9 +21,9 @@ export class AlgorithmService {
 
   /** Run bfs tests */
 
-  runBFSTest(tree: any, edgesCount: number): Observable<any> {
-    console.log("hi");
-    return this.http.post<any>('http://localhost:4200/api/bfsTest', {tree: this.convertTree(tree), edgesCount: edgesCount});
+  runBFSTest(tree: any, edgesCount: number, nodeNumber: number): Observable<any> {
+    let treeToSend = this.convertTree(tree);
+    return this.http.post<any>('http://localhost:4200/api/bfsTest', {tree: treeToSend, edgesCount: edgesCount, nodeNumber: nodeNumber});
   }
 
   /** Helper Methods */
