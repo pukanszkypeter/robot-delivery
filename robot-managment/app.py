@@ -49,7 +49,7 @@ def runBFSTest():
     for key in json_tree:
         tree[int(key)] = json_tree[key]
 
-    runTest(10, tree, numberOfEdge, numberOfNode)
+    runTest(100, tree, numberOfEdge, numberOfNode)
     return ''
 
 # Greedy
