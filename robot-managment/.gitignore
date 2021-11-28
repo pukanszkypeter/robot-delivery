@@ -4,6 +4,5 @@
 # Pycache Files
 *.pyc
 
-#Database
-
+# Database file
 *.sqlite
