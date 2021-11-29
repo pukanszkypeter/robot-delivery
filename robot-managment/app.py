@@ -1,6 +1,6 @@
 # Webserver
 from flask import Flask, jsonify, request, render_template, send_from_directory
-from algorithms import bfs, greedy
+from algorithms import bfs, bfsTest, greedy, greedyTest
 import warnings
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -34,6 +34,20 @@ def runBFS():
     else:
         return jsonify(steps)
 
+# BFS Test
+@app.route("/api/bfs/test", methods=['POST'])
+def runBFSTest():
+    parameters = request.get_json()
+    json_tree = parameters['tree']
+    numberOfTests = parameters['test']
+
+    tree = {}
+    for key in json_tree:
+        tree[int(key)] = json_tree[key]
+
+    testResult = bfsTest.runTest(numberOfTests, tree)
+    return jsonify(testResult)
+
 # Greedy
 @app.route("/api/greedy", methods=['POST'])
 def runGreedy():
@@ -58,6 +72,17 @@ def runGreedy():
     intervals = model.greedy()
     return jsonify(intervals)
 
+# Greedy Test
+@app.route("/api/greedy/test", methods=['POST'])
+def runGreedyTest():
+    parameters = request.get_json()
+    numberOfTests = parameters['test']
+    numberOfNodes = parameters['node']
+
+    results = greedyTest.runTests(numberOfTests, numberOfNodes)
+    
+    testResult = greedyTest.saveTestResults(results)
+    return jsonify(testResult)
 
 # Fav icon
 @app.route('/favicon.ico') 

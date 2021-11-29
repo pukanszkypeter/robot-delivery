@@ -89,5 +89,10 @@
     </button>
   </div>
 </div>
-<mat-card id="vis-container">
+<mat-card class="mb-4" id="vis-container">
 </mat-card>
+<h1 class="display-6 fw-normal mb">Testing section</h1>
+<ul class="tests-button">
+  <li class="test-button"><button mat-raised-button (click)="openBFSTestConfigurationDialog()" >Run BFS Tests<i class="bi bi-arrow-right-short"></i></button></li>
+  <li class="test-button"><button mat-raised-button (click)="openGreedyTestConfigurationDialog()">Run Greedy Tests<i class="bi bi-arrow-right-short"></i></button></li>
+</ul>

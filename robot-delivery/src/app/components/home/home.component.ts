@@ -3,11 +3,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {TreeConfigurationComponent} from "./tree-configuration/tree-configuration.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import * as vis from 'vis-network';
-import { DataSet } from "vis-data/peer/esm/vis-data";
+import {DataSet} from "vis-data/peer/esm/vis-data";
 import {BfsConfigurationComponent} from "./bfs-configuration/bfs-configuration.component";
 import {AlgorithmService} from "../../services/server-side/algorithm.service";
 import {RobotConfigurationComponent} from "./robot-configuration/robot-configuration.component";
 import {VisService} from "../../services/client-side/vis.service";
+import {BfsTestConfigurationComponent} from "./bfs-test-configuration/bfs-test-configuration.component";
+import {GreedyTestConfigurationComponent} from "./greedy-test-configuration/greedy-test-configuration.component";
 
 @Component({
   selector: 'app-home',
@@ -71,6 +73,28 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  openBFSTestConfigurationDialog(): void {
+    const dialogRef = this.dialog.open(BfsTestConfigurationComponent, { width: '30%',height: '40%', disableClose: true});
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.operators = false;
+        let result = this.implementTree(res.level, res.child)
+        this.algorithmService.runBFSTest(result.tree, res.test).subscribe(res => {
+          if (res) {
+            this.openSnackBar('Successful tests!', 'success-snackbar')
+          }
+        }, err => {
+          console.log(err);
+          this.openSnackBar('Tests failed!', 'error-snackbar')
+        });
+      }
+    }, err => {
+      console.log(err);
+      this.openSnackBar('Failed to save!', 'error-snackbar');
+    });
+  }
+
   openRobotConfigurationDialog(): void {
     const dialogRef = this.dialog.open(RobotConfigurationComponent, {
       data: {path: this.bfsSteps[this.bfsSteps.length - 1]}, width: '30%', height: '50%', disableClose: true });
@@ -85,6 +109,33 @@ export class HomeComponent implements OnInit {
       console.log(err);
       this.openSnackBar('Failed to save!', 'error-snackbar');
     });
+  }
+
+  openGreedyTestConfigurationDialog(): void {
+    const dialogRef = this.dialog.open(GreedyTestConfigurationComponent, { width: '30%',height: '40%', disableClose: true});
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.operators = false;
+        this.algorithmService.runGreedyTest(res.node, res.test).subscribe(res => {
+          if (res) {
+            this.openSnackBar('Successful tests!', 'success-snackbar')
+          }
+        }, err => {
+          console.log(err);
+          this.openSnackBar('Tests failed!', 'error-snackbar')
+        });
+      }
+    }, err => {
+      console.log(err);
+      this.openSnackBar('Failed to save!', 'error-snackbar');
+    });
+  }
+
+  /** Test method */
+
+  implementTree(level: number, child: number) {
+    return {tree: this.visService.generateTree(level, child)};
   }
 
   /** Vis.js */
