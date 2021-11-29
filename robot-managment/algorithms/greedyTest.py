@@ -64,8 +64,9 @@ def saveTestResults(finalResults):
     sql_insert_query = """insert into greedy_measurement (k, ceiling, steps) values (?, ?, ?)"""
 
     for i in finalResults:
-        print("Robot number: " + str(i.robotsNumber) + " - " + "Ceiling(k * log(k)): " + str(math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber))) + " - " + " Steps: " + str(i.steps))
-        cursor.execute(sql_insert_query, (i.robotsNumber, math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber)), i.steps))
+        ceiling = math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber))
+        print("Robot number: " + str(i.robotsNumber) + " - " + "Ceiling(k * log(k)): " + str(ceiling if ceiling != 0 else 1) + " - " + " Steps: " + str(i.steps))
+        cursor.execute(sql_insert_query, (i.robotsNumber, ceiling if ceiling != 0 else 1, i.steps))
         inserted_id = cursor.lastrowid
         connection.commit()
 

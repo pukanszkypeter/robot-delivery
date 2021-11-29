@@ -6,3 +6,6 @@
 
 # Database file
 *.sqlite
+
+# Jupyter Checkpoints
+.ipynb_checkpoints/
