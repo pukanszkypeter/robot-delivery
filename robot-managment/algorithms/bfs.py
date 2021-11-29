@@ -15,6 +15,9 @@ class Tree:
         self.nodes = nodes
         self.edges = edges
 
+    def getN(self):
+        return len(self.nodes) + len(self.edges)
+
     # convert tree to dictionary
     def createMap(self):
         result = {}
@@ -41,9 +44,14 @@ def bfs_steps(tree, start, end):
             new_path.append(adjacent)
             queue.append(new_path)
 
-"""
-EXAMPLE
+# calculates the nodes of a tree object
+def getNumberOfNodes(tree):
+    nodes = 0
+    for key in tree:
+        nodes += len(tree[key])
+    return nodes + 1
 
+'''
 node_a = Node(1)
 node_b = Node(2)
 node_c = Node(3)
@@ -81,9 +89,7 @@ edges.append(edge_c_g)
 edges.append(edge_e_h)
 
 tree = Tree(nodes, edges)
-
-print('Input:')
-print(tree.createMap())
-print('Output:')
-print(bfs_steps(tree.createMap(), 1, 8))
-"""
+print("N: " + str(tree.getN()))
+print("Input: " + str(tree.createMap()))
+print("Output: " + str(bfs_steps(tree.createMap(), 1, 8)))
+'''

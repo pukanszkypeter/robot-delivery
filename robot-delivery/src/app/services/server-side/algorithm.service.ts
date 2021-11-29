@@ -19,6 +19,17 @@ export class AlgorithmService {
     return this.http.post<any>('http://localhost:4200/api/greedy', {nodes: greedyModel.nodes, edges: greedyModel.edges, agents: greedyModel.agents})
   }
 
+  /** Run BFS tests */
+  runBFSTest(tree: any, test: number): Observable<any> {
+    let treeToSend = this.convertTree(tree);
+    return this.http.post<any>('http://localhost:4200/api/bfs/test', {tree: treeToSend, test: test});
+  }
+
+  /** Run Greedy tests */
+  runGreedyTest(node: number, test: number): Observable<any> {
+    return this.http.post<any>('http://localhost:4200/api/greedy/test', {node: node, test: test});
+  }
+
   /** Helper Methods */
   convertTree(tree: any): any {
     let converted: {[key: string]: number[]} = {};
