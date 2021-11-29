@@ -24,6 +24,7 @@ import { BfsConfigurationComponent } from './components/home/bfs-configuration/b
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import { BfsTestConfigurationComponent } from './components/home/bfs-test-configuration/bfs-test-configuration.component';
+import { GreedyTestConfigurationComponent } from './components/home/greedy-test-configuration/greedy-test-configuration.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BfsTestConfigurationComponent } from './components/home/bfs-test-config
     TreeConfigurationComponent,
     RobotConfigurationComponent,
     BfsConfigurationComponent,
-    BfsTestConfigurationComponent
+    BfsTestConfigurationComponent,
+    GreedyTestConfigurationComponent
   ],
     imports: [
         BrowserModule,

@@ -9,6 +9,7 @@ import {AlgorithmService} from "../../services/server-side/algorithm.service";
 import {RobotConfigurationComponent} from "./robot-configuration/robot-configuration.component";
 import {VisService} from "../../services/client-side/vis.service";
 import {BfsTestConfigurationComponent} from "./bfs-test-configuration/bfs-test-configuration.component";
+import {GreedyTestConfigurationComponent} from "./greedy-test-configuration/greedy-test-configuration.component";
 
 @Component({
   selector: 'app-home',
@@ -72,15 +73,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openTestConfigurationDialog(): void {
+  openBFSTestConfigurationDialog(): void {
     const dialogRef = this.dialog.open(BfsTestConfigurationComponent, { width: '30%',height: '40%', disableClose: true});
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.operators = false;
-        this.openSnackBar('Successful saving!', 'success-snackbar');
         let result = this.implementTree(res.level, res.child)
-        this.algorithmService.runBFSTest(result.tree, result.edgeCount, result.nodeCount).subscribe();
+        this.algorithmService.runBFSTest(result.tree, res.test).subscribe(res => {
+          if (res) {
+            this.openSnackBar('Successful tests!', 'success-snackbar')
+          }
+        }, err => {
+          console.log(err);
+          this.openSnackBar('Tests failed!', 'error-snackbar')
+        });
       }
     }, err => {
       console.log(err);
@@ -104,12 +111,31 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  openGreedyTestConfigurationDialog(): void {
+    const dialogRef = this.dialog.open(GreedyTestConfigurationComponent, { width: '30%',height: '40%', disableClose: true});
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.operators = false;
+        this.algorithmService.runGreedyTest(res.node, res.test).subscribe(res => {
+          if (res) {
+            this.openSnackBar('Successful tests!', 'success-snackbar')
+          }
+        }, err => {
+          console.log(err);
+          this.openSnackBar('Tests failed!', 'error-snackbar')
+        });
+      }
+    }, err => {
+      console.log(err);
+      this.openSnackBar('Failed to save!', 'error-snackbar');
+    });
+  }
+
   /** Test method */
 
   implementTree(level: number, child: number) {
-    let tree = this.visService.generateTree(level, child);
-    let edges = this.visService.calculateTreeData(level, child);
-    return {tree: tree, edgeCount: this.visService.calculateTreeEdgeNumber(edges.edges, this.visService.calculateTreeNodeNumber(tree)), nodeCount: this.visService.calculateTreeNodeNumber(tree)};
+    return {tree: this.visService.generateTree(level, child)};
   }
 
   /** Vis.js */

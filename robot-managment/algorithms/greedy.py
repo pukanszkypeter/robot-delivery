@@ -97,9 +97,7 @@ class GreedyModel:
         
         return accessible
 
-
 '''
-
 node_1 = Node(1)
 node_2 = Node(2)
 node_3 = Node(3)
@@ -114,7 +112,6 @@ nodes.append(node_3)
 nodes.append(node_4)
 nodes.append(node_5)
 nodes.append(node_6)
-
 
 edge_1_2 = Edge(1, 2, 2)
 edge_2_3 = Edge(2, 3, 2)
@@ -138,24 +135,8 @@ agents = []
 agents.append(agent_1)
 agents.append(agent_2)
 agents.append(agent_3)
-
-
-def calculateResult(interval, numberOfNodes):
-    valueses = list(interval.values())
-    print(valueses)
-
-    lastValue = valueses[len(valueses) - 1]
-    print(lastValue)
-    lastNodeId = lastValue[1]
-    print(lastNodeId)
-    if lastNodeId != numberOfNodes:
-        return None
-    else:
-        return len(list(interval.keys()))
    
-
 greedyModel = GreedyModel(nodes, edges, agents)
 greedyModel.initAgents()
-calculateResult(greedyModel.greedy(), 6)
-
+greedyModel.greedy()
 '''

@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>
+  Greedy Test configuration
+  <button mat-mini-fab class="close-button" mat-dialog-close>
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</h1>
+<mat-dialog-content>
+  <form [formGroup]="greedyTestConfiguration">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max number of nodes</mat-label>
+        <input type="number" matInput [formControl]="node">
+        <mat-error *ngIf="node.hasError('required')">Max number of node is required!</mat-error>
+        <mat-error *ngIf="node.hasError('min')">Min value should be 5!</mat-error>
+        <mat-error *ngIf="node.hasError('max')">Max value should be 50!</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max number of tests</mat-label>
+        <input type="number" matInput [formControl]="test">
+        <mat-error *ngIf="test.hasError('required')">Max number of tests is required!</mat-error>
+        <mat-error *ngIf="test.hasError('min')">Min value should be 1!</mat-error>
+        <mat-error *ngIf="test.hasError('max')">Max value should be 100!</mat-error>
+      </mat-form-field>
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button style="background-color: blueviolet;color: white" [class.disabled-button]="!greedyTestConfiguration.valid" [disabled]="!greedyTestConfiguration.valid" (click)="save()">Save</button>
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

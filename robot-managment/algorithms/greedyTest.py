@@ -1,8 +1,5 @@
-from greedy import *
-import random
-import math
-import numpy
-import sqlite3
+from algorithms.greedy import *
+import random, math, numpy, sqlite3
 
 class Result:
     def __init__(self, robotsNumber, steps):
@@ -25,9 +22,9 @@ def generateEdges(numberOfNodes):
 
 def generateAgents(k, budgetMax, numberOfNodes):
     agents = []
-    for i in range(1, k+1):
-        budget = random.randint(1, budgetMax)*5 # fontos hogy 5nel nagyobb legyen vagy nem tudjak rendesen lefedni
-        startNode = random.randint(1, numberOfNodes+1)
+    for i in range(1, k + 1):
+        budget = random.randint(1, budgetMax) * 5 # must be greater then 5 or doesn't give a solution
+        startNode = random.randint(1, numberOfNodes + 1)
         agents.append(Agent(i, startNode, budget))
 
     return agents
@@ -43,7 +40,6 @@ def calculateResult(interval, numberOfNodes):
             return len(list(interval.keys()))
     else:
         return None
-
 
 def runTests(numberOfTests, numberOfNodes):
     nodes = generateNodes(numberOfNodes)
@@ -61,25 +57,17 @@ def runTests(numberOfTests, numberOfNodes):
             results.append(Result(k, steps))
     return results
 
-
 def saveTestResults(finalResults):
-    connection = sqlite3.connect("../data/memory.sqlite" , detect_types = sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+    connection = sqlite3.connect("data/memory.sqlite" , detect_types = sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
     cursor = connection.cursor()
 
-
-    sql_insert_query = """insert into delivery_measurement
-            (k, ceiling, steps) values (?, ?, ?)"""
+    sql_insert_query = """insert into greedy_measurement (k, ceiling, steps) values (?, ?, ?)"""
 
     for i in finalResults:
+        print("Robot number: " + str(i.robotsNumber) + " - " + "Ceiling(k * log(k)): " + str(math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber))) + " - " + " Steps: " + str(i.steps))
         cursor.execute(sql_insert_query, (i.robotsNumber, math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber)), i.steps))
         inserted_id = cursor.lastrowid
         connection.commit()
 
     cursor.close()
-finalResults = runTests(100,20)
-
-saveTestResults(finalResults)
-
-for i in finalResults:
-    print("Robot umber: " + str(i.robotsNumber) + " Felső korlát k * log(k): " + str(math.ceil(numpy.log(int(i.robotsNumber)) * int(i.robotsNumber))) + " Steps: " + str(i.steps)) #szor 3 mivel step 1, el megy érte, step 2 el viszi, vissza megy step 3 és amúgy így hülyeség az egész enélkül
-
+    return True

@@ -9,13 +9,14 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class BfsTestConfigurationComponent implements OnInit {
 
-  treeConfiguration: FormGroup;
+  bfsTestConfiguration: FormGroup;
 
   constructor(private dialogRef: MatDialogRef<BfsTestConfigurationComponent>,
               private fb: FormBuilder) {
-    this.treeConfiguration = this.fb.group({
+    this.bfsTestConfiguration = this.fb.group({
       level: new FormControl(2, [Validators.required, Validators.min(2)]),
-      child: new FormControl(2, [Validators.required, Validators.min(2)])
+      child: new FormControl(2, [Validators.required, Validators.min(2)]),
+      test: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(100)])
     });
   }
 
@@ -23,16 +24,21 @@ export class BfsTestConfigurationComponent implements OnInit {
   }
 
   save(): void {
-    this.dialogRef.close({level: this.level.value, child: this.child.value});
+    this.dialogRef.close({level: this.level.value, child: this.child.value, test: this.test.value});
   }
 
   /** Form Controls */
 
   get level(): FormControl {
-    return this.treeConfiguration.get('level') as FormControl;
+    return this.bfsTestConfiguration.get('level') as FormControl;
   }
 
   get child(): FormControl {
-    return this.treeConfiguration.get('child') as FormControl;
+    return this.bfsTestConfiguration.get('child') as FormControl;
   }
+
+  get test(): FormControl {
+    return this.bfsTestConfiguration.get('test') as FormControl;
+  }
+
 }

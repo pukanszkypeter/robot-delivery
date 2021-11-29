@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>
-  Tree configuration
+  BFS Test configuration
   <button mat-mini-fab class="close-button" mat-dialog-close>
     <mat-icon svgIcon="close"></mat-icon>
   </button>
 </h1>
 <mat-dialog-content>
-  <form [formGroup]="treeConfiguration">
+  <form [formGroup]="bfsTestConfiguration">
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Max level of tree</mat-label>
@@ -22,10 +22,19 @@
         <mat-error *ngIf="child.hasError('min')">Min value should be 2!</mat-error>
       </mat-form-field>
     </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Max number of tests</mat-label>
+        <input type="number" matInput [formControl]="test">
+        <mat-error *ngIf="test.hasError('required')">Max number of tests is required!</mat-error>
+        <mat-error *ngIf="test.hasError('min')">Min value should be 1!</mat-error>
+        <mat-error *ngIf="test.hasError('min')">Max value should be 100!</mat-error>
+      </mat-form-field>
+    </p>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button style="background-color: blueviolet;color: white" [class.disabled-button]="!treeConfiguration.valid" [disabled]="!treeConfiguration.valid" (click)="save()">Save</button>
+  <button mat-raised-button style="background-color: blueviolet;color: white" [class.disabled-button]="!bfsTestConfiguration.valid" [disabled]="!bfsTestConfiguration.valid" (click)="save()">Save</button>
   <button mat-raised-button mat-dialog-close>Close</button>
 </mat-dialog-actions>
 
